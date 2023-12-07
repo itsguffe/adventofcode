@@ -31,7 +31,7 @@ fn parse_string_to_number(s: &str) -> &str {
 }
 
 fn find_first_instance(s: String, patterns: Vec<&str>, reverse: bool) -> &str {
-    let mut first_instance = "onani";
+    let mut first_instance = "";
     let mut last_index = usize::MAX;
     for pattern in patterns {
         if reverse {
