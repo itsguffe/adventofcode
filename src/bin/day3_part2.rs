@@ -115,7 +115,6 @@ mod matrix_handler {
         }
     }
 
-
     fn get_whole_digit(chars: &Vec<char>, index: usize, is_digit: bool) -> (Vec<char>, usize, usize) {
         if is_digit {
             return (vec![chars[index]], index, index);
@@ -171,7 +170,6 @@ mod matrix_handler {
         true
     }
 
-
     fn get_result_sum (chars: Vec<char>) -> u32 {
         let mut result: Vec<String> = Vec::new();
         let mut current_number = String::new();
@@ -197,7 +195,6 @@ mod matrix_handler {
     }
 }
 
-
 fn main() {
     let input = read_file();
 
@@ -209,7 +206,6 @@ fn main() {
     let sum = matrix_handler.get_matrix_sum();
     println!("{sum}");
 }
-
 
 fn read_file() -> String {
     let contents = fs::read_to_string("inputs/3.txt").expect("Couldn't read the file.");
