@@ -20,9 +20,7 @@ fn main() {
     }
 
     for seed_range in seeds {
-        let nice = seed_range.0;
-        println!("{nice}");
-        let mut test = u64::MAX;
+        let mut range_skip = u64::MAX;
         let mut seed = seed_range.0 as u64;
 
         while seed <= seed_range.0 as u64 + seed_range.1 as u64 {
@@ -34,8 +32,8 @@ fn main() {
                     let range_high = range_low + range.2 as u64 - 1;
 
                     if cur_value >= range_low && cur_value <= range_high {
-                        if (range_high - cur_value) < test {
-                            test = range_high - cur_value;
+                        if (range_high - cur_value) < range_skip {
+                            range_skip = range_high - cur_value;
                         }
                         cur_value = range.0 as u64 + (cur_value - range_low);
                         break;
@@ -46,21 +44,19 @@ fn main() {
             if cur_value < lowest_location {
                 lowest_location = cur_value;
             }
-            let khkh = seed_range.0 as u64 + seed_range.1 as u64;
-            println!("{cur_value} - {max_range} : {nice} - {khkh}");
 
             if max_range < cur_value {
                 break;
             }
 
             seed += 1;
-            seed += test;
+            seed += range_skip;
         }
     }
 
     println!("{lowest_location}");
-    let elapsed_time = start_time.elapsed().as_millis();
-    println!("{elapsed_time} ms");
+    let end_time = Instant::now();
+    println!("Elapsed time: {:?}", end_time - start_time);
 }
 
 fn get_seeds(input: &String) -> Vec<(u32, u32)> {
