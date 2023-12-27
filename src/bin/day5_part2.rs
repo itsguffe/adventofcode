@@ -6,24 +6,16 @@ fn main() {
     let input = read_file();
     let seeds = get_seeds(&input);
     let mappings = get_ranges(&input);
+    let mut i: usize= 0;
 
     let mut lowest_location = u64::MAX;
-
-    let mut max_range = u64::MAX;
-
-    if let Some(max_inner_vec) = &mappings
-        .iter()
-        .flat_map(|inner_vec| inner_vec.iter().map(|&(_a, b, c)| b as u64 + c as u64))
-        .max()
-    {
-        max_range = *max_inner_vec;
-    }
 
     for seed_range in seeds {
         let mut range_skip = u64::MAX;
         let mut seed = seed_range.0 as u64;
 
         while seed <= seed_range.0 as u64 + seed_range.1 as u64 {
+            i += 1;
             let mut cur_value = seed as u64;
 
             for map in &mappings {
@@ -45,10 +37,6 @@ fn main() {
                 lowest_location = cur_value;
             }
 
-            if max_range < cur_value {
-                break;
-            }
-
             seed += 1;
             seed += range_skip;
         }
@@ -57,6 +45,7 @@ fn main() {
     println!("{lowest_location}");
     let end_time = Instant::now();
     println!("Elapsed time: {:?}", end_time - start_time);
+    println!("{i}");
 }
 
 fn get_seeds(input: &String) -> Vec<(u32, u32)> {
